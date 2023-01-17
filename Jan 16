@@ -1,0 +1,170 @@
+float sunX, sunY;
+float mercuryX, mercuryY;
+float venusX, venusY;
+float earthX, earthY;
+float marsX, marsY;
+float jupiterX, jupiterY;
+float saturnX, saturnY;
+float uranusX, uranusY;
+float neptuneX, neptuneY;
+
+float mercurySpeed = 0.287;
+float venusSpeed = 0.224;
+float earthSpeed = 0.188;
+float marsSpeed = 0.103;
+float jupiterSpeed = 0.041;
+float saturnSpeed = 0.029;
+float uranusSpeed = 0.019;
+float neptuneSpeed = 0.009;
+
+boolean state=true;
+float angle=0;
+
+float starsX[]=new float[500];
+float starsY[]=new float[500];
+float starsAlpha[]=new float[500];
+
+void setup() {
+  size(1000, 1000);
+  for (int i=0; i<500; i++) {
+    starsX[i]=random(0, 999);
+    starsY[i]=random(0, 999);
+    int type=int(random(1, 6));
+    starsAlpha[i]=type*50;
+  }
+  
+  sunX = width/2;
+  sunY = height/2;
+  mercuryX = sunX +10+139/2;
+  mercuryY = sunY;
+  venusX = sunX + 31+139/2;
+  venusY = sunY;
+  earthX = sunX + 58+139/2;
+  earthY = sunY;
+  marsX = sunX + 105+139/2;
+  marsY = sunY;
+  jupiterX = sunX + 172+139/2;
+  jupiterY = sunY;
+  saturnX = sunX + 242+139/2;
+  saturnY = sunY;
+  uranusX = sunX + 357+139/2;
+  uranusY = sunY;
+  neptuneX = sunX + 412+139/2;
+  neptuneY = sunY;
+  noStroke();
+  textAlign(LEFT, BOTTOM);
+  textSize(18);
+  textLeading(18);
+}
+
+void draw() {
+  state=true;
+  background(20, 23, 50);
+  for (int i=0; i<500; i++) {
+    fill(255, starsAlpha[i]);
+    ellipse(starsX[i], starsY[i], 2, 2);
+  }
+  color c1, c2;
+  c1=color(252, 252, 107, 40);
+  c2=color(252, 252, 107, 0);
+  noFill();
+  strokeWeight(2);
+  for (float rad=0; rad<=350; rad++) {
+    color c=lerpColor(c1, c2, rad/350);
+    stroke(c);
+    ellipse(sunX, sunY, rad, rad);
+  }
+
+
+  //draw the orbits
+  stroke (184, 185, 193);
+  strokeWeight(1);
+  noFill();
+  ellipse(sunX, sunY, (10*2+139), (10*2+139));
+  ellipse(sunX, sunY, (31*2+139), (31*2+139));
+  ellipse(sunX, sunY, (58*2+139), (58*2+139));
+  ellipse(sunX, sunY, (105*2+139), (105*2+139));
+  ellipse(sunX, sunY, (172*2+139), (172*2+139));
+  ellipse(sunX, sunY, (242*2+139), (242*2+139));
+  ellipse(sunX, sunY, (357*2+139), (357*2+139));
+  ellipse(sunX, sunY, (412*2+139), (412*2+139));
+
+  //draw the sun
+  fill(251, 235, 100);
+  ellipse(sunX, sunY, 139, 139);
+
+
+
+  //draw the planets
+  noStroke();
+  fill(216, 104, 102);
+  ellipse(mercuryX, mercuryY, 8, 8);
+    if (dist(mouseX, mouseY, mercuryX, mercuryY)<8) {
+    state=false;
+    text("Mercury\nDiameter: 3,032 miles\nGravity: 0.38 g\nOrbit Length: 3 Earth month; 233,700,000 miles\nDistance from Sun: 36,800,000 miles", mercuryX, mercuryY-4-10);
+  }
+  fill(234, 117, 68);
+  ellipse(venusX, venusY, 22, 22);
+    if (dist(mouseX, mouseY, venusX, venusY)<11) {
+    state=false;
+    text("Venus\nDiameter: 7,521 miles\nGravity: 0.9 g\nOrbit Length: 7 Earth month; 422,500,000 miles\nDistance from Sun: 67,200,000 miles", venusX, venusY-11-10);
+  }
+  fill(86, 192, 233);
+  ellipse(earthX, earthY, 20, 20);
+    if (dist(mouseX, mouseY, earthX, earthY)<10) {
+    state=false;
+    text("Earth\nDiameter: 7,926 miles\nGravity: 1 g\nOrbit Length: 1 Earth year; 584,000,000 miles\nDistance from Sun: 93,000,000 miles", earthX, earthY-10-10);
+  }
+  fill(221, 63, 91);
+  ellipse(marsX, marsY, 14, 14);
+     if (dist(mouseX, mouseY, marsX, marsY)<7) {
+    state=false;
+    text("Mars\nDiameter: 4,220 miles\nGravity: 0.9 g\nOrbit Length: 23 Earth month; 888,000,000 miles\nDistance from Sun: 141,600,000 miles", marsX, marsY-7-10);
+  }
+  fill(205, 172, 161);
+  ellipse(jupiterX, jupiterY, 60, 60);
+    if (dist(mouseX, mouseY, jupiterX, jupiterY)<30) {
+    state=false;
+    text("Jupiter\nDiameter: 88,846 miles\nGravity: 2.53 g\nOrbit Length: 142 month year; 3,037,000,000 miles\nDistance from Sun: 483,600,000 miles", jupiterX, jupiterY-30-10);
+  }
+  fill(193, 153, 203);
+  ellipse(saturnX, saturnY, 40, 40);
+    if (dist(mouseX, mouseY, saturnX, saturnY)<20) {
+    state=false;
+    text("Saturn\nDiameter: 74,898 miles\nGravity: 1.07 g\nOrbit Length: 354 Earth month; 5,565,900,000 miles\nDistance from Sun: 886,500,000 miles", saturnX, saturnY-20-10);
+  }
+  fill(162, 204, 235);
+  ellipse(uranusX, uranusY, 30, 30);
+  if (dist(mouseX, mouseY, uranusX, uranusY)<15) {
+    state=false;
+    text("Uranus\nDiameter: 31,763 miles\nGravity: 0.89 g\nOrbit Length: 1009 Earth month; 11,201,300,000 miles\nDistance from Sun: 1,783,700,000 miles", uranusX, uranusY-15-10);
+  }
+  fill(77, 175, 231);
+  ellipse(neptuneX, neptuneY, 20, 20);
+  if (dist(mouseX, mouseY, neptuneX, neptuneY)<10) {
+    state=false;
+    text("Neptune\nDiameter: 30,775 miles\nGravity: 1.14 g\nOrbit Length: 1979 Earth month; 17,562,300,000 miles\nDistance from Sun: 2,795,200,000 miles", neptuneX, neptuneY-10-10);
+  }
+  fill(255);
+
+  //update the positions of the planets
+  mercuryX = sunX + (139/2+10) * cos(radians(angle * mercurySpeed));
+  mercuryY = sunY + (139/2+10) * sin(radians(angle * mercurySpeed));
+  venusX = sunX + (139/2+31) * cos(radians(angle * venusSpeed));
+  venusY = sunY + (139/2+31) * sin(radians(angle * venusSpeed));
+  earthX = sunX + (139/2+58)* cos(radians(angle * earthSpeed));
+  earthY = sunY+ (139/2+58) * sin(radians(angle * earthSpeed));
+  marsX = sunX + (139/2+105)* cos(radians(angle * marsSpeed));
+  marsY = sunY+ (139/2+105)* sin(radians(angle * marsSpeed));
+  jupiterX = sunX + (139/2+172)* cos(radians(angle * jupiterSpeed));
+  jupiterY = sunY + (139/2+172)* sin(radians(angle * jupiterSpeed));
+  saturnX = sunX + (139/2+242)* cos(radians(angle * saturnSpeed));
+  saturnY = sunY+ (139/2+242) * sin(radians(angle * saturnSpeed));
+  uranusX = sunX + (139/2+357) * cos(radians(angle * uranusSpeed));
+  uranusY = sunY + (139/2+357) * sin(radians(angle * uranusSpeed));
+  neptuneX = sunX + (139/2+412) * cos(radians(angle * neptuneSpeed));
+  neptuneY = sunY + (139/2+412) *sin(radians(angle * neptuneSpeed));
+  if (state==true) {
+    angle+=1;
+  }
+}
